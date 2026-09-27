@@ -1,0 +1,10 @@
+{
+  "description": "A premium digital magazine and podcast platform offering elegant editorial content, structured articles, and immersive audio experiences for discerning readers.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
