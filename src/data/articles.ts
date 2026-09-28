@@ -8,7 +8,25 @@ export interface Article {
   readTime: string;
   image: string;
   body?: string[];
+  trending?: boolean;
+  mostReadRank?: number;
 }
+
+export interface PodcastEpisode {
+  id: string;
+  number: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  duration: string;
+  date: string;
+  category: string;
+  image: string;
+  audioUrl?: string;
+}
+
+const img = (id: string, w = 1200, h = 800) =>
+  `https://images.unsplash.com/${id}?w=${w}&h=${h}&fit=crop&auto=format&q=80`;
 
 export const FEATURED_ARTICLE: Article = {
   id: 'things-we-never-say',
@@ -31,6 +49,45 @@ export const FEATURED_ARTICLE: Article = {
   ],
 };
 
+export const TRENDING_ARTICLES: Article[] = [
+  {
+    id: 'art-of-being-alone',
+    category: 'REFLECTION',
+    title: 'On Solitude and the Art of Being Alone',
+    subtitle: 'A meditation on chosen aloneness versus loneliness.',
+    excerpt: 'There is a difference between loneliness and solitude. One is chosen; the other happens to you.',
+    date: 'Sep 8, 2026',
+    readTime: '6 min',
+    image: 'photo-1499209974431-9dddcece7f88',
+    trending: true,
+    mostReadRank: 1,
+  },
+  {
+    id: 'what-morning-teaches',
+    category: 'LIFE',
+    title: 'What the Morning Teaches Us',
+    subtitle: 'On the discipline and grace of early hours.',
+    excerpt: 'I have started waking before the city does. There is something almost sacred in those first pale hours.',
+    date: 'Aug 26, 2026',
+    readTime: '4 min',
+    image: 'photo-1464822759023-fed622ff2c3b',
+    trending: true,
+    mostReadRank: 2,
+  },
+  {
+    id: 'cities-i-wont-forget',
+    category: 'STORIES',
+    title: 'Cities I Will Never Forget',
+    subtitle: 'The streets that changed the way I see the world.',
+    excerpt: 'A city changes you slowly, imperceptibly. You only notice when you have left it.',
+    date: 'Sep 2, 2026',
+    readTime: '5 min',
+    image: 'photo-1480714378408-67cf0d13bc1b',
+    trending: true,
+    mostReadRank: 3,
+  },
+];
+
 export const JOURNAL_ARTICLES: Article[] = [
   {
     id: 'art-of-being-alone',
@@ -39,8 +96,9 @@ export const JOURNAL_ARTICLES: Article[] = [
     subtitle: 'A meditation on chosen aloneness versus the loneliness that happens to you.',
     excerpt: 'There is a difference between loneliness and solitude. One is chosen; the other happens to you. I have been practicing the distinction.',
     date: 'Sep 8, 2026',
-    readTime: '6 min',
+    readTime: '6 min read',
     image: 'photo-1499209974431-9dddcece7f88',
+    mostReadRank: 1,
     body: [
       'There is a difference between loneliness and solitude. One is chosen; the other happens to you. I have been practicing the distinction.',
       'In solitude, you are the company you keep. This is either terrifying or liberating, depending on what you find when you sit still long enough.',
@@ -52,13 +110,14 @@ export const JOURNAL_ARTICLES: Article[] = [
   },
   {
     id: 'cities-i-wont-forget',
-    category: 'TRAVEL',
+    category: 'STORIES',
     title: 'Cities I Will Never Forget',
     subtitle: 'The streets that changed the way I see the world.',
     excerpt: 'A city changes you slowly, imperceptibly. You only notice when you have left it — when you carry a piece of its light inside you without knowing how it got there.',
     date: 'Sep 2, 2026',
-    readTime: '5 min',
+    readTime: '5 min read',
     image: 'photo-1480714378408-67cf0d13bc1b',
+    mostReadRank: 3,
     body: [
       'A city changes you slowly, imperceptibly. You only notice when you have left it — when you carry a piece of its light inside you without knowing how it got there.',
       'Lisbon taught me that melancholy and beauty are not opposites. Its fado clubs, its faded azulejo tiles, its hills that exhaust you and then reward you with the entire Atlantic — that city understands the pleasure of longing.',
@@ -73,8 +132,9 @@ export const JOURNAL_ARTICLES: Article[] = [
     subtitle: 'On the discipline and grace of early hours.',
     excerpt: 'I have started waking before the city does. There is something almost sacred in those first pale hours — the world still undecided, still soft at the edges.',
     date: 'Aug 26, 2026',
-    readTime: '4 min',
+    readTime: '4 min read',
     image: 'photo-1464822759023-fed622ff2c3b',
+    mostReadRank: 2,
     body: [
       'I have started waking before the city does. There is something almost sacred in those first pale hours — the world still undecided, still soft at the edges.',
       'The morning has a particular quality of attention. It has not yet accumulated the weight of the day. You meet it clean.',
@@ -89,8 +149,9 @@ export const JOURNAL_ARTICLES: Article[] = [
     subtitle: 'The things I wish someone had told me — and the things no one could have.',
     excerpt: 'If I could go back, I would tell her to take up more space. To stop apologizing for existing loudly, for having needs, for being too much.',
     date: 'Aug 19, 2026',
-    readTime: '7 min',
+    readTime: '7 min read',
     image: 'photo-1455390582262-044cdead277a',
+    mostReadRank: 4,
     body: [
       'If I could go back, I would tell her to take up more space. To stop apologizing for existing loudly, for having needs, for being too much.',
       'I would tell her that the relationships she is afraid of ending will end on their own, and that she will survive it, and that the survival will surprise her.',
@@ -100,13 +161,14 @@ export const JOURNAL_ARTICLES: Article[] = [
   },
   {
     id: 'beauty-of-imperfect',
-    category: 'CULTURE',
+    category: 'REFLECTION',
     title: 'The Beauty of Imperfect Things',
     subtitle: 'What wabi-sabi taught me about letting things be as they are.',
     excerpt: 'Wabi-sabi is the Japanese art of finding beauty in imperfection. The cracked glaze, the asymmetric bowl, the linen that refuses to iron flat. I have been trying to learn it.',
     date: 'Aug 12, 2026',
-    readTime: '5 min',
+    readTime: '5 min read',
     image: 'photo-1474552226712-ac0f0961a954',
+    mostReadRank: 5,
     body: [
       'Wabi-sabi is the Japanese art of finding beauty in imperfection. The cracked glaze, the asymmetric bowl, the linen that refuses to iron flat. I have been trying to learn it.',
       'We live in a time of relentless optimization. Every surface can be smoothed, every edge beveled, every imperfection filtered into nonexistence. The result is a world that looks perfect and feels hollow.',
@@ -116,12 +178,12 @@ export const JOURNAL_ARTICLES: Article[] = [
   },
   {
     id: 'notes-from-journey',
-    category: 'TRAVEL',
+    category: 'STORIES',
     title: 'Notes From a Long Journey',
     subtitle: 'On trains, patience, and the education of moving slowly.',
     excerpt: 'The road teaches you things that no book can. Most of them involve patience — specifically, your lack of it, and the quiet work of finding it.',
     date: 'Aug 5, 2026',
-    readTime: '6 min',
+    readTime: '6 min read',
     image: 'photo-1488085061387-422e29b40080',
     body: [
       'The road teaches you things that no book can. Most of them involve patience — specifically, your lack of it, and the quiet work of finding it.',
@@ -130,11 +192,50 @@ export const JOURNAL_ARTICLES: Article[] = [
       'I arrived different from how I left. Not in any dramatic way. But something had rearranged itself. That is the gift of the long way around.',
     ],
   },
+  {
+    id: 'verses-in-margins',
+    category: 'POETRY',
+    title: 'Verses Written in the Margins of Night',
+    subtitle: 'Short poetry fragments on moonlight, silence, and insomnia.',
+    excerpt: 'When the house falls quiet and dusk yields to midnight, words gather on the margins of notebook paper like birds on telephone wires.',
+    date: 'Jul 29, 2026',
+    readTime: '3 min read',
+    image: 'photo-1518895949257-7621c3c786d7',
+    body: [
+      'When the house falls quiet and dusk yields to midnight, words gather on the margins of notebook paper like birds on telephone wires.',
+      'I.',
+      'The moon is a pale coin tossed into the well of evening.',
+      'We wish for things we already possess,',
+      'and forget to hold them.',
+      'II.',
+      'Memory is not a museum of frozen statues.',
+      'It is a river that carries fallen leaves',
+      'downstream into uncharted seas.',
+      'III.',
+      'To love a place is to know how the shadows fall at four o\'clock in November.',
+    ],
+  },
+  {
+    id: 'architecture-of-friendship',
+    category: 'VOICES',
+    title: 'The Architecture of Quiet Friendships',
+    subtitle: 'How adult friendships survive distance, silence, and busy years.',
+    excerpt: 'The best friendships in adulthood do not require daily maintenance. They are built on an unspoken foundation of trust that picks up without hesitation.',
+    date: 'Jul 18, 2026',
+    readTime: '6 min read',
+    image: 'photo-1529156069898-49953e39b3ac',
+    body: [
+      'The best friendships in adulthood do not require daily maintenance. They are built on an unspoken foundation of trust that picks up without hesitation.',
+      'In our twenties, friendship is proximity. You share apartments, bars, late-night dinners, immediate crises. In our thirties and beyond, friendship becomes intention. It requires calendar coordination and long grace periods.',
+      'I have a friend in Montreal whom I talk to twice a year. When we call, there is no warmup period. We skip the pleasantries and dive straight into the deep water: what we are afraid of, what we are building, who we are becoming.',
+      'This is the architecture of quiet friendship. It doesn\'t demand proof. It simply holds.',
+    ],
+  },
 ];
 
 export const HORIZONTAL_FEATURE: Article = {
   id: 'language-of-silence',
-  category: 'ESSAY',
+  category: 'LIFE',
   title: 'The Language of Silence',
   subtitle: 'How learning to say nothing taught me everything about communication.',
   excerpt: 'We are trained to fill silence. A pause in a conversation triggers an almost physical discomfort — a compulsion to speak, to smooth things over, to make it stop. But silence, properly attended to, is its own kind of language.',
@@ -149,12 +250,62 @@ export const HORIZONTAL_FEATURE: Article = {
   ],
 };
 
-export const PODCAST_EPISODE = {
-  number: 'EP. 12',
-  title: 'Finding Your Voice in the Noise',
-  description: 'In a world that rewards volume, what does it mean to speak quietly and still be heard? A conversation about authenticity, creative courage, and the discipline of restraint.',
-  duration: '42:18',
-  image: 'photo-1478737270239-2f02b77fc618',
-};
+export const PODCAST_EPISODES: PodcastEpisode[] = [
+  {
+    id: 'ep-12',
+    number: 'EP. 12',
+    title: 'Finding Your Voice in the Noise',
+    subtitle: 'Authenticity, creative courage, and the discipline of restraint.',
+    description: 'In a world that rewards volume, what does it mean to speak quietly and still be heard? A deep conversation about authenticity, creative courage, and the discipline of restraint.',
+    duration: '42:18',
+    date: 'Sep 20, 2026',
+    category: 'AUTHENTICITY',
+    image: 'photo-1478737270239-2f02b77fc618',
+  },
+  {
+    id: 'ep-11',
+    number: 'EP. 11',
+    title: 'The Solitude Companion',
+    subtitle: 'Embracing quiet spaces in a hyper-connected era.',
+    description: 'Exploring why we fear being alone with our thoughts and how cultivating intentional solitude opens up new realms of creativity and emotional peace.',
+    duration: '36:45',
+    date: 'Sep 10, 2026',
+    category: 'SOLITUDE',
+    image: 'photo-1516414447565-b14be0adf13e',
+  },
+  {
+    id: 'ep-10',
+    number: 'EP. 10',
+    title: 'Creativity Under Pressure',
+    subtitle: 'How constraint fuels artistic freedom.',
+    description: 'Why total freedom can paralyze creative work, while self-imposed boundaries and quiet deadlines unlock our most resonant ideas.',
+    duration: '48:10',
+    date: 'Aug 28, 2026',
+    category: 'CREATIVITY',
+    image: 'photo-1455390582262-044cdead277a',
+  },
+  {
+    id: 'ep-09',
+    number: 'EP. 09',
+    title: 'Travel as a Mirror',
+    subtitle: 'What moving through foreign places reveals about home.',
+    description: 'Reflections from three months on the road across Southern Europe — on displacement, language barriers, and finding sanctuary in unfamiliar places.',
+    duration: '39:05',
+    date: 'Aug 15, 2026',
+    category: 'TRAVEL',
+    image: 'photo-1488085061387-422e29b40080',
+  },
+];
+
+export const FEATURED_PODCAST = PODCAST_EPISODES[0];
+export const PODCAST_EPISODE = FEATURED_PODCAST; // backwards compatibility
+
+export const MOST_READ_ARTICLES: Article[] = [
+  JOURNAL_ARTICLES[0], // On Solitude
+  JOURNAL_ARTICLES[2], // What Morning Teaches
+  JOURNAL_ARTICLES[1], // Cities I Will Never Forget
+  JOURNAL_ARTICLES[3], // A Letter to My Younger Self
+  JOURNAL_ARTICLES[4], // The Beauty of Imperfect Things
+];
 
 export const ALL_ARTICLES: Article[] = [FEATURED_ARTICLE, ...JOURNAL_ARTICLES, HORIZONTAL_FEATURE];
