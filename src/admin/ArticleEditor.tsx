@@ -35,7 +35,7 @@ export default function ArticleEditor() {
       setExcerpt(data.excerpt || '');
       setContent(data.content || '');
       setCategory(data.category || '');
-      setReadingTime(data.readingTime || '');
+      setReadingTime(data.reading_time || '');
       setStatus(data.status as 'draft'|'published');
       setCoverImageUrl(data.cover_image || '');
     }

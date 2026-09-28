@@ -52,6 +52,7 @@ export interface Database {
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       podcasts: {
         Row: {
@@ -96,6 +97,7 @@ export interface Database {
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       categories: {
         Row: {
@@ -116,6 +118,7 @@ export interface Database {
           slug?: string
           created_at?: string
         }
+        Relationships: []
       }
       comments: {
         Row: {
@@ -145,6 +148,7 @@ export interface Database {
           status?: 'pending' | 'approved' | 'rejected'
           created_at?: string
         }
+        Relationships: []
       }
       echoes: {
         Row: {
@@ -165,7 +169,20 @@ export interface Database {
           visitor_id?: string
           created_at?: string
         }
+        Relationships: []
       }
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      [_ in never]: never
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
     }
   }
 }
